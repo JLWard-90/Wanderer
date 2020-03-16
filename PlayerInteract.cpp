@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Jacob Ward 2020
 
 #include "DrawDebugHelpers.h"
 #include "Engine/World.h"

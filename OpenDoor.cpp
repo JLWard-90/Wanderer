@@ -1,4 +1,4 @@
-// Copywrite Jacob Ward 2020
+// Copyright Jacob Ward 2020
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
