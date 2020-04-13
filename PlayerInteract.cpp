@@ -3,6 +3,7 @@
 #include "DrawDebugHelpers.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
+#include "Components/PrimitiveComponent.h"
 #include "DoorSwitch.h"
 #include "PlayerInteract.h"
 
@@ -61,6 +62,24 @@ void UPlayerInteract::Grab()
 			NAME_None,
 			GetReachEnd()
 		);
+		bObjectGrabbed = true;
+	}
+}
+
+void UPlayerInteract::Throw()
+{
+	if (bObjectGrabbed)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Throw object"));
+		//UE_LOG(LogTemp, Error, TEXT("Throwing objects not yet implemented! using UPlayerInteract::Release()"));
+		UPrimitiveComponent* GrabbedActor = PhysicsHandle->GetGrabbedComponent();
+		UE_LOG(LogTemp, Warning, TEXT("Object: {%s}"), *GrabbedActor->GetOwner()->GetName());
+		FVector PlayerViewPointLocation;
+		FRotator PlayerViewPointRotation;
+		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
+		FVector ThrowVector = PlayerViewPointRotation.Vector() * PlayerThrowForce;
+		GrabbedActor->AddForce(ThrowVector);
+		Release();
 	}
 }
 
@@ -68,6 +87,7 @@ void UPlayerInteract::Release()
 {
 	if (!PhysicsHandle){return;}
 	PhysicsHandle->ReleaseComponent();
+	bObjectGrabbed = false;
 }
 
 FHitResult UPlayerInteract::GetFirstPhysicsBodyInReach() const
@@ -113,6 +133,7 @@ void UPlayerInteract::SetupInputComponent()
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UPlayerInteract::Grab);
 		InputComponent->BindAction("Release", IE_Released, this, &UPlayerInteract::Release);
 		InputComponent->BindAction("Interact", IE_Pressed, this, &UPlayerInteract::InteractWithObject);
+		InputComponent->BindAction("Throw", IE_Pressed, this, &UPlayerInteract::Throw);
 	}
 	else
 	{

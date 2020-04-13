@@ -38,10 +38,15 @@ private:
 	UInputComponent* InputComponent = nullptr; 
 
 	void Grab();
+	bool bObjectGrabbed = false;
 	void Release();
+	void Throw();
+	UPROPERTY(EditAnywhere)
+	float PlayerThrowForce = 500000.0f;
 	void FindPhysicsHandle();
 	void SetupInputComponent();
 	void InteractWithObject();
+	
 
 	FHitResult GetFirstPhysicsBodyInReach() const;//return first actor within reach with a physics body
 	FHitResult GetFirstInteractableInReach() const; //return first actor within reach that is an interactable, e.g. a switch.

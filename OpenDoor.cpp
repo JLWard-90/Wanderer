@@ -96,7 +96,7 @@ float UOpenDoor::TotalMassOfActors() const
 	{
 		Total += ActorPtr->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 	}
-	UE_LOG(LogTemp, Warning, TEXT("%f"), Total);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), Total);
 	return Total;
 }
 
