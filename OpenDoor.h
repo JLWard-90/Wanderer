@@ -32,6 +32,7 @@ public:
 	float TotalMassOfActors() const;//Mass of actors on trigger
 	void FindAudioComponent();
 	bool CheckSwitchState();
+	
 
 private:
 	float ClosedYaw;
