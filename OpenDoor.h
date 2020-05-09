@@ -52,6 +52,8 @@ private:
 	float DoorTimer = 0.f;
 
 	UPROPERTY(EditAnywhere)
+	bool bOpenDoorWithPressurePlate = true;
+	UPROPERTY(EditAnywhere)
 	ATriggerVolume* OpenDoorTrigger = nullptr;
 
 	UPROPERTY()
@@ -63,6 +65,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	bool bOpenDoorWithSwitch = false;
 	bool bDoorOpenedBySwitch = false;
+
+	
 	
 	UPROPERTY(EditAnywhere)
 	AActor* DoorSwitchObject;

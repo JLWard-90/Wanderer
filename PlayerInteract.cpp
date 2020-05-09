@@ -143,13 +143,12 @@ void UPlayerInteract::SetupInputComponent()
 
 void UPlayerInteract::InteractWithObject()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Interaction not yet implemented!"));
 	FHitResult InteractableHit = GetFirstInteractableInReach();
 	if(InteractableHit.GetActor() == nullptr)
 	{
 		return;
 	}
-	if(InteractableHit.GetActor()->FindComponentByClass<UDoorSwitch>() != nullptr)
+	if(InteractableHit.GetActor()->FindComponentByClass<UDoorSwitch>() != nullptr) //If the Actor has a switch component, interact with that
 	{
 		InteractableHit.GetActor()->FindComponentByClass<UDoorSwitch>()->FlipSwitchState();
 		UE_LOG(LogTemp, Warning, TEXT("{%s} flipped"), *(InteractableHit.GetActor()->GetName()));

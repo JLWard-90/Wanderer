@@ -38,12 +38,12 @@ void UOpenDoor::BeginPlay()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if (bOpenDoorWithSwitch)
+	if (bOpenDoorWithSwitch) //Checks state of the switch if the door is opened by a switch
 	{
 		bDoorOpenedBySwitch = CheckSwitchState();
 	}
 	
-	if (TotalMassOfActors() >= RequiredMass || (bOpenDoorWithSwitch && bDoorOpenedBySwitch))
+	if ((bOpenDoorWithPressurePlate && TotalMassOfActors() >= RequiredMass) || (bOpenDoorWithSwitch && bDoorOpenedBySwitch))
 	{
 		OpenDoor(DeltaTime);
 		if (!bDoorOpen && AudioComponent)
