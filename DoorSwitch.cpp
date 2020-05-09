@@ -1,6 +1,7 @@
 // Copyright Jacob Ward 2020
 
-
+#include "GameFramework/Actor.h"
+#include "AnimateSwitch.h"
 #include "DoorSwitch.h"
 
 // Sets default values for this component's properties
@@ -44,6 +45,25 @@ void UDoorSwitch::SetSwitchState(bool bNewState)
 
 void UDoorSwitch::FlipSwitchState()
 {
+	if(CheckIfSwitchAnimation())
+	{
+		UAnimateSwitch* AnimationComponent = GetOwner()->FindComponentByClass<UAnimateSwitch>();
+		if (bDoorSwitch && !AnimationComponent->GetActivation())
+		{
+			bDoorSwitch = false;
+			UE_LOG(LogTemp, Warning, TEXT("Activating animation"));
+			AnimationComponent->ActivateSwitchAnimation();
+			return;
+		}
+		if (!AnimationComponent->GetActivation()) 
+		{
+			bDoorSwitch = true;
+			UE_LOG(LogTemp, Warning, TEXT("Activating animation"));
+			AnimationComponent->ActivateSwitchAnimation();
+			return;
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("No Animation component found"));
 	if (bDoorSwitch)
 	{
 		bDoorSwitch = false;
@@ -52,5 +72,15 @@ void UDoorSwitch::FlipSwitchState()
 	{
 		bDoorSwitch = true;
 	}
+}
+
+bool UDoorSwitch::CheckIfSwitchAnimation()
+{
+	UAnimateSwitch* AnimationComponent = GetOwner()->FindComponentByClass<UAnimateSwitch>();
+	if (AnimationComponent != nullptr)
+	{
+		return true;
+	}
+	return false;
 }
 

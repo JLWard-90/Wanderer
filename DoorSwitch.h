@@ -30,5 +30,6 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	bool bDoorSwitch = false;
+	bool CheckIfSwitchAnimation();
 
 };

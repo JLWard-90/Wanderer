@@ -158,7 +158,7 @@ void UPlayerInteract::InteractWithObject()
 FHitResult UPlayerInteract::GetFirstInteractableInReach() const
 {
 	FVector PlayerViewPointLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-	// DrawDebugLine(GetWorld(),PlayerViewPointLocation,LineTraceEnd,FColor(255,0,0),false,0.f,0,5.f);//Draw a debug line
+	//DrawDebugLine(GetWorld(),PlayerViewPointLocation,LineTraceEnd,FColor(255,0,0),false,0.f,0,5.f);//Draw a debug line
 	FHitResult Hit;
 	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());//Raycast from player to a reach distance
 	GetWorld()->LineTraceSingleByObjectType(
@@ -172,6 +172,7 @@ FHitResult UPlayerInteract::GetFirstInteractableInReach() const
 	{
 		return Hit;
 	}
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), *Hit.GetActor()->GetName());
 	UDoorSwitch* doorSwitchClass = Hit.GetActor()->FindComponentByClass<UDoorSwitch>();
 	if (doorSwitchClass != nullptr)
 	{
