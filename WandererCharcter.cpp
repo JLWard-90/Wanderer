@@ -29,7 +29,7 @@ void AWandererCharcter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Cannot find movement component"));
 	}
-	
+	CurrentPlayerSpeed = PlayerWalkSpeed;
 }
 
 // Called every frame
@@ -54,13 +54,15 @@ void AWandererCharcter::SetupInputComponent()
 	InputComponent->BindAxis("LookUp", this, &AWandererCharcter::LookUp);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	InputComponent->BindAction("Sprint",IE_Pressed, this, &AWandererCharcter::Sprint);
+	InputComponent->BindAction("Sprint",IE_Released, this, &AWandererCharcter::StopSprinting);
 }
 
 void AWandererCharcter::MoveForward(float Val)
 {
 	if (Val != 0)
 	{
-		AddMovementInput(GetActorForwardVector(), Val*PlayerWalkSpeed);
+		AddMovementInput(GetActorForwardVector(), Val*CurrentPlayerSpeed);
 	}
 }
 
@@ -68,7 +70,7 @@ void AWandererCharcter::StrafeRight(float Val)
 {
 	if (Val != 0)
 	{
-		AddMovementInput(GetActorRightVector(), Val*PlayerWalkSpeed);
+		AddMovementInput(GetActorRightVector(), Val*CurrentPlayerSpeed);
 	}
 }
 
@@ -86,4 +88,16 @@ void AWandererCharcter::LookUp(float Val)
 	{
 		AddControllerPitchInput(Val);
 	}
+}
+
+void AWandererCharcter::Sprint()
+{
+	CurrentPlayerSpeed = PlayerSprintSpeed;
+	MovementComponent->MaxWalkSpeed = PlayerSprintSpeed;
+}
+
+void AWandererCharcter::StopSprinting()
+{
+	CurrentPlayerSpeed = PlayerWalkSpeed;
+	MovementComponent->MaxWalkSpeed = PlayerWalkSpeed;
 }

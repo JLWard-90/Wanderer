@@ -25,6 +25,8 @@ protected:
 	void StrafeRight(float Val);
 	void LookRight(float Val);
 	void LookUp(float Val);
+	void Sprint();
+	void StopSprinting();
 
 public:	
 	// Called every frame
@@ -36,6 +38,9 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float PlayerWalkSpeed = 600;
+	UPROPERTY(EditAnywhere)
+	float PlayerSprintSpeed = 1200;
+	float CurrentPlayerSpeed = 300;
 
 	AActor* OwnerActor;
 };
