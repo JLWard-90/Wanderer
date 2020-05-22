@@ -47,12 +47,12 @@ void UAnimateSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	{
 		if (GetSwitchState() != bInitialSwitchState)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Animating forward"));
+			//UE_LOG(LogTemp, Warning, TEXT("Animating forward"));
 			AnimateForward(DeltaTime);
 		}
 		if (bCanReverse && (GetSwitchState() == bInitialSwitchState))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Animating backward"));
+			//UE_LOG(LogTemp, Warning, TEXT("Animating backward"));
 			AnimateBackward(DeltaTime);
 		}
 	}

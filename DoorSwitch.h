@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "DoorSwitch.generated.h"
 
 
@@ -31,5 +32,14 @@ private:
 	UPROPERTY(EditAnywhere)
 	bool bDoorSwitch = false;
 	bool CheckIfSwitchAnimation();
-
+	UPROPERTY(EditAnywhere)
+	bool bAutomateSwitchOnTriggerVolume = false;
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* AutomateSwitchTriggerVolume = nullptr;
+	UPROPERTY(EditAnywhere)
+	AActor* AutoSwitchTriggerActor = nullptr;
+	void AutomateSwitchOnTrigger();
+	bool bSwitchAutoFlipped = false;
+	UPROPERTY(EditAnywhere)
+	bool bAutoSwitchOnCharacterEnterVolume = false;
 };

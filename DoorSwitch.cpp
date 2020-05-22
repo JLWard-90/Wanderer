@@ -21,7 +21,11 @@ void UDoorSwitch::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	if (bAutomateSwitchOnTriggerVolume && bAutoSwitchOnCharacterEnterVolume)
+	{
+		//If we want to trigger switch with the player character entering the trigger volume
+		AutoSwitchTriggerActor = GetWorld()->GetFirstPlayerController()->GetPawn();
+	}
 }
 
 
@@ -31,6 +35,7 @@ void UDoorSwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	AutomateSwitchOnTrigger();
 }
 
 bool UDoorSwitch::GetSwitchState() const
@@ -82,5 +87,23 @@ bool UDoorSwitch::CheckIfSwitchAnimation()
 		return true;
 	}
 	return false;
+}
+
+void UDoorSwitch::AutomateSwitchOnTrigger()
+{
+	if (bAutomateSwitchOnTriggerVolume && AutomateSwitchTriggerVolume != nullptr && AutoSwitchTriggerActor != nullptr && !bSwitchAutoFlipped)
+	{
+		TArray<AActor*> OverlappingActors;
+		AutomateSwitchTriggerVolume->GetOverlappingActors(OUT OverlappingActors);
+		for (AActor* ActorPtr : OverlappingActors)
+		{
+			//UE_LOG(LogTemp, Warning, TEXT("%s, %s"), *ActorPtr->GetName(), *AutoSwitchTriggerActor->GetName());
+			if (ActorPtr == AutoSwitchTriggerActor)
+			{
+				bSwitchAutoFlipped = true;
+				FlipSwitchState();
+			}
+		}
+	}
 }
 
