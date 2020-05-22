@@ -37,7 +37,7 @@ void UBirdMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 
 void UBirdMovement::SelectNewTarget()
 {
-	Target = FVector(FMath::RandRange(XboundLow,XboundHigh), FMath::RandRange(YboundLow,YboundHigh),FMath::RandRange(ZboundHigh,ZboundHigh));
+	Target = FVector(FMath::RandRange(XboundLow,XboundHigh), FMath::RandRange(YboundLow,YboundHigh),FMath::RandRange(ZboundLow,ZboundHigh));
 }
 
 void UBirdMovement::MoveTowardsTarget(float DeltaTime)
